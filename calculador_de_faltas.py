@@ -12,21 +12,27 @@ def calcular_faltas():
 
         print(f"Total de dias: {total_dias}, Faltas atuais: {faltas_atual}, Limite de faltas: {limite_faltas}, Faltas restantes: {faltas_restantes}")
 
-        if faltas_restantes > 1:
-            msg = f"Você ainda pode faltar {faltas_restantes} dias."
-            exibir_imagem("pode_faltar.jpg")  
-        elif faltas_restantes == 1:
-            msg = "Você ainda pode faltar 1 dia."
-            exibir_imagem("pode_faltar.jpg")  
-        elif faltas_restantes == 0:
-            msg = "Você não pode mais faltar. Cuidado!!"
-            exibir_imagem("nao_pode_faltar.jpg")  
-        else:
-            msg = "Você excedeu o limite de faltas! Parabéns, reprovou ^^"
-            exibir_imagem("reprovo.jpg")  
 
-        # Atualiza o rótulo com a mensagem
-        lbl_mensagem.config(text=msg)
+        if faltas_atual < 0 or total_dias < 0:
+            lbl_mensagem.config(text="Erro: Por favor, insira números válidos.")
+            exibir_imagem("numero_valido.jpg")
+            print("Erro: entradas inválidas.")
+        else:    
+            if faltas_restantes > 1:
+                msg = f"Você ainda pode faltar {faltas_restantes} dias."
+                exibir_imagem("pode_faltar.jpg")  
+            elif faltas_restantes == 1:
+                msg = "Você ainda pode faltar 1 dia."
+                exibir_imagem("pode_faltar.jpg")  
+            elif faltas_restantes == 0:
+                msg = "Você não pode mais faltar. Cuidado!!"
+                exibir_imagem("nao_pode_faltar.jpg") 
+            else:
+                msg = "Você excedeu o limite de faltas! Parabéns, reprovou ^^"
+                exibir_imagem("reprovo.jpg")  
+
+            # Atualiza o rótulo com a mensagem
+            lbl_mensagem.config(text=msg)
 
     except ValueError:
         lbl_mensagem.config(text="Erro: Por favor, insira números válidos.")
