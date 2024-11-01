@@ -30,6 +30,7 @@ def calcular_faltas():
 
     except ValueError:
         lbl_mensagem.config(text="Erro: Por favor, insira números válidos.")
+        exibir_imagem("numero_valido.jpg")
         print("Erro: entradas inválidas.")
 
 def exibir_imagem(nome_imagem):
