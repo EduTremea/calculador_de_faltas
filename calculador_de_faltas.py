@@ -1,3 +1,5 @@
+import os
+import sys
 import tkinter as tk
 from PIL import Image, ImageTk
 
@@ -7,11 +9,9 @@ def calcular_faltas():
         faltas_atual = int(entry_faltas.get())
         
         limite_faltas = int(total_dias * 0.25)
-
         faltas_restantes = limite_faltas - faltas_atual
 
         print(f"Total de dias: {total_dias}, Faltas atuais: {faltas_atual}, Limite de faltas: {limite_faltas}, Faltas restantes: {faltas_restantes}")
-
 
         if faltas_atual < 0 or total_dias < 0:
             lbl_mensagem.config(text="Erro: Por favor, insira números válidos.")
@@ -31,7 +31,6 @@ def calcular_faltas():
                 msg = "Você excedeu o limite de faltas! Parabéns, reprovou ^^"
                 exibir_imagem("reprovo.jpg")  
 
-            # Atualiza o rótulo com a mensagem
             lbl_mensagem.config(text=msg)
 
     except ValueError:
@@ -41,7 +40,10 @@ def calcular_faltas():
 
 def exibir_imagem(nome_imagem):
     try:
-        img = Image.open(nome_imagem)
+        base_path = getattr(sys, '_MEIPASS', os.path.dirname(__file__))
+        img_path = os.path.join(base_path, nome_imagem)
+        
+        img = Image.open(img_path)
         img = img.resize((200, 200), Image.LANCZOS)  
         img_tk = ImageTk.PhotoImage(img)
         lbl_imagem.configure(image=img_tk)
